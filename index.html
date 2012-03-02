@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8" />
+<title>Roller Demo</title>
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"/>
+<style>
+* {background-repeat:no-repeat;}
+body {margin: 0;padding: 0;}
+
+#container {
+	position: absolute;
+	bottom: 0;
+	width : 768px;
+	height :90px;
+	background-color: #000000;
+	overflow:hidden;
+	-webkit-transform: translatez(0);}
+#poster {
+	background-image: url(img/background.jpg);
+	background-position: 0 0;
+	width: 768px;
+	height: 980px;
+	-webkit-transform: translatez(0); position:relative;}
+#poster_title {
+	position:absolute;width:768px;height:90px;top:700px;left:90px;}
+#container .cta{
+	width: 768px;height: 90px;position:absolute; top: -90px;
+	/* put offscreen when not in use */
+	left: 0; display:block;opacity: 0;
+	text-indent: -999em;}
+	/* When the banner is animating normally */
+ .running #poster {-webkit-animation: 'poster_image' 21s 1 linear forwards;}
+ .running #gsm-adunit-cta-01 {background-image: url(img/web.png);
+ -webkit-animation: 'appear_disappear' 4s 2.3s;}
+ .running #expand {
+	background-image: url(img/info.png);
+	background-position: 0 0;top: 0;
+	-webkit-animation: 'appear' 0.5s 16s forwards;}
+ .running #expand i {
+	background-image: url(img/open.png);
+	position:absolute;left: 665px;top: 35px;width:36px;height: 36px;
+	-webkit-transition: opacity 0.5s linear;}
+ .running #expand em {
+	width: 200px;height: 90px;display:block;position:absolute;cursor: pointer;}
+ /* whent the banner is paused */
+ .paused #expand {
+	background-image: url(images/roller-cta-expand.png);opacity: 1;top: 0;}
+ .paused #poster {
+	-webkit-transform: translate3d(0,-934px,0);}
+ /* when the banner is exanding */
+ .expanding #poster{
+	-webkit-animation: 'poster_expand' 6s 0s linear forwards;}
+ .firstrun #poster {-webkit-animation: none;}
+ .expanding #expand i {opacity: 0;}
+ #container.expanding {
+	-webkit-animation: 'container_expand' 6s 6s linear forwards;}
+ #container.expanding2 {
+	-webkit-animation: 'container_expand' 4s 4s linear forwards;}
+ #container.firstrun {
+	-webkit-animation-delay: 0s;}
+ .expanding #collapse {
+	background-image: url(img/close.png);
+ -webkit-animation: 'appear' 0.5s 8s forwards;background-position: 665px 25px;top: 0;}
+ .expanding #gsm-adunit-cta-01 {background-image: url(img/web.png);top: 350px;opacity: 0;
+ -webkit-animation: 'appear' 4s 8s forwards;}
+ -webkit-animation: 'appear' 4s 7s forwards;}
+ .expanding #expand {background-image: url(img/info.png);opacity: 0;top: 738px;
+ -webkit-animation: 'appear' 4s 9s forwards;}
+ .expanding #expand i {display: none;} 
+ .expanding #expand em { width: 200px;height: 90px;display:block;position:absolute;cursor: pointer; }
+ /* when the banner is collapsing */
+ #container.collapse{height: 800px;-webkit-animation: 'container_collapse' 4s linear forwards;}
+ .collapse .cta {opacity: 1;-webkit-animation: 'disappear' 0.5s 200ms forwards;}
+ 
+ 
+/* ANIMATIONS */
+ @-webkit-keyframes 'poster_image' {
+	0% {-webkit-transform: translate(0,0);
+		-webkit-transform: translate3d(0,0,0);}
+	8%, 
+	33% {-webkit-transform: translate(0,-336px);
+		-webkit-transform: translate3d(0,-336px,0);}
+	37%, 63% { -webkit-transform: translate(0,-447px);
+				-webkit-transform: translate3d(0,-447px,0);}
+	70%, 98%, 100%{ -webkit-transform: translate(0,-884px);
+					-webkit-transform: translate3d(0,-884px,0);}} 
+ @-webkit-keyframes 'poster_expand'{
+	0% {-webkit-transform: translate(0,-894px);
+		-webkit-transform: translate3d(0,-894px,0);}
+	100%{ -webkit-transform: translate(0,0);
+		-webkit-transform: translate3d(0,0,0);}}
+ @-webkit-keyframes 'container_expand' {
+	0% {height: 90px;}
+	100%{ height: 950px;}}
+ @-webkit-keyframes 'container_collapse' {
+	0% {height: 950px;}
+	100%{ height: 90px;}}
+ @-webkit-keyframes 'poster_collapse' {
+	100% {-webkit-transform: translate(0,90px);
+ -webkit-transform: translate3d(0,90px,0);}0% {-webkit-transform: translate(0,0);
+ -webkit-transform: translate3d(0,0,0);}}
+ @-webkit-keyframes 'appear_disappear' {0%, 100% {opacity: 0;top: 0;}20%, 80% {opacity: 1;top: 0;}}
+ @-webkit-keyframes 'appear' {0%{opacity: 0;}100% {opacity: 1;}}
+ @-webkit-keyframes 'disappear' {0%{opacity: 1;}100% {opacity: 0;}}
+ /* ############## The butterfly ############## */
+ 
+ 
+ :not(.running) .butterfly div {height: 100px;width: 100px;
+ -webkit-animation: flutter 2.5s linear 11 3.75s alternate backwards;
+ -webkit-transform-style: preserve-3d;}
+ .expanding .butterfly,.collapse .butterfly {-webkit-animation: around 25.1s linear 5s forwards;position:absolute; top: 700px;left: 400px;}
+ .expanding .butterfly i,.collapse .butterfly i{ background-size: 50px auto; background-repeat: no-repeat;
+ -webkit-animation: flit 375ms 66 5s alternate; -webkit-transform-origin: right;
+ background-image:url(img/butterflies_iPad.gif); display:inline-block; height: 50px; 
+ width: 25px;background-repeat: no-repeat;}.expanding .butterfly i + i,
+ .collapse .butterfly i + i{background-position: top right; -webkit-transform-origin: left; 
+ -webkit-animation: inverseflit 375ms 66 5s alternate;}
+ @-webkit-keyframes flit {0% {-webkit-transform: skew(0deg, 0deg) scale(1,1) rotate3d(0, 30, 42, -20deg);}
+ 100% {-webkit-transform: skew(8deg, 0deg) scale(0.5,1)}}
+ @-webkit-keyframes inverseflit {0% {-webkit-transform: skew(0deg, 0deg) scale(1,1) 
+ rotate3d(0, 30, 42, 20deg);}100% {-webkit-transform: skew(-8deg, 0deg) scale(0.5,1)}}
+ @-webkit-keyframes flutter {0% {-webkit-transform: perspective(649) translate3d(49px, 59px, 49px) 
+ scale3d(1, 0.95, 1.35) rotate3d(0, 30, 42, -50deg);}50% {-webkit-transform: translate3d(0, 0, 0) scale3d(1, 1, 1) 
+ rotate3d(0, 0, 0, 0deg);}100% {-webkit-transform: perspective(649) translate3d(49px, 59px, 49px) 
+ scale3d(1, 0.95, 1.35) rotate3d(0, 30, 42, 50deg); }}
+ @-webkit-keyframes around {0%, 99% {-webkit-transform: translate(0,0); opacity:1}
+ 25% {-webkit-transform: translate(-200px,-300px);}50% {-webkit-transform: translate(0,-600px);}
+ 75% {-webkit-transform: translate(200px, -300px);}100% {-webkit-transform: translate(0,0);opacity: 0;}}
+ /* ############## The Clouds ############## */
+ #clouds, #clouds div {height: 285px;width: 768px;position:absolute;}
+ #clouds div {width: 480px;}
+ #clouds div:nth-of-type(1){top: 20px;left: 320px;opacity: 0.6;
+ background-image:url(img/cloud2.png), url(img/cloud4.png), url(img/cloud1.png);
+ -webkit-animation: movingbg 15s linear -5s infinite alternate, cloudsa 26s ease-out -23s infinite alternate;}
+ #clouds div:nth-of-type(2) {top: 0px;opacity: 0.6;left:-400px;background-image:url(img/cloud3.png), 
+ url(img/cloud2.png), url(img/cloud1.png);
+ -webkit-animation: movingbg 20s linear 0s infinite alternate, cloudsb 22s ease-out -31s infinite alternate;}
+ #clouds div:nth-of-type(3) {top: -60px;left: -600px;width: 768px;opacity: 0.6;
+ background-image: url(img/cloud5.png), url(img/cloud3.png),url(img/cloud1.png);
+ -webkit-animation: movingbg 18s linear 0s infinite alternate, cloudsc 24s ease-out -10s infinite alternate;}
+ #clouds {opacity: 0; -webkit-transition: opacity 0.2s linear;}
+ .expanding #clouds {opacity: 1;}.firstrun 
+ .cta {display: none !important;}
+ @-webkit-keyframes movingbg {0% {background-position: 0% 0%, 40% 0%, 100% 0%;}
+ 20% {background-position: 0% 5%, 50% 0%, 92% 0%;}
+ 40% {background-position: 0% 20%, 45% 0%, 88% 0%;}
+ 60% {background-position: 0% 14%, 55% 0%, 83% 0%;}
+ 80% {background-position: 0% 16%, 58% 0%, 80% 0%;}}
+ @-webkit-keyframes cloudsa {from {-webkit-transform: translatez(0) matrix(1, 0, 0, 1, 486.05, 0) scale(1,1);}
+ to {-webkit-transform: translatez(0) matrix(1, 0, 0, 1, -73.95, 0) scale(0.8, 0.8);}}
+ @-webkit-keyframes cloudsb {to {-webkit-transform: translatez(0) matrix(1, 0, 0, 1, 987.8, 0) scale(0.9, 0.9);}
+ from {-webkit-transform: translatez(0) matrix(1, 0, 0, 1, 67.8, 0) scale(1,1);opacity: 1;}}
+ @-webkit-keyframes cloudsc {from {-webkit-transform: translatez(0) matrix(1, 0, 0, 1, 76.05, 0) scale(1,1);}
+ to {-webkit-transform: translatez(0) matrix(1, 0, 0, 1, 984.7, 0) scale(0.85,1.1);}}
+ </style>
+ </head>
+ <body>
+	
+	<div id="container" class="expanding firstrun">
+		<div id="poster"> <div id="clouds"> 
+		<div></div>
+		<div></div> 
+		<div></div>
+		</div>
+		<img id="poster_title" src="img/info.png" /> 
+		<i></i> 
+	</div>
+	<div id="expand" class="cta">Expand this poster<i></i><em></em></div>
+	<div id="collapse" class="cta">Collapse this poster</div> 
+	<div class="butterfly"> 
+		<div> 
+		<i></i> <i></i> 
+		</div> 
+		</div>
+		</div>
+
+	</body>
+	<script> 
+		timestamp = 0;
+		window.addEventListener( 'load', function() {
+		var expand, collapse, container, lastframehanging,flag;
+		window.setTimeout(function() {
+			window.scrollTo(0,1);
+		},1);
+		container = document.querySelector('#container');
+		expand = document.querySelector('#expand i');
+		collapse = document.querySelector('#collapse');
+		title = document.querySelector('#poster_title'); 
+		expand.addEventListener( 'click', function() {
+			window.resizeTo(768,980);
+			container.className = 'expanding';
+			delete lastframehanging;}, false );
+		collapse.addEventListener( 'click', function(e) {collapseAndRestart(e);}, false );
+		function collapseAndRestart(e){
+			container.className = 'collapse';
+			window.setTimeout(function(){ 
+				container.className = 'running'; 
+		try { window.resizeTo(768, 90); timestamp=e?e.timeStamp+4600:new Date().getTime(); } catch(e) { } }, 4600);
+		window.setTimeout(function(){title.style.display = 'none';}, 10000);}
+		var startAnime = window.setTimeout(function(){collapseAndRestart();}, 10000);});
+	</script>
+</html>
